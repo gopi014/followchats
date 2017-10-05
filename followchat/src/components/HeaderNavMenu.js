@@ -15,11 +15,23 @@ import List,{ ListItem, ListItemIcon, ListItemText,ListItemAvatar,ListItemSecond
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import SocialMediaIcons from '../components/SocialMediaIcons'
-
+import Dialog, { DialogTitle } from 'material-ui/Dialog';
+import SocialMediaIcons from '../components/SocialMediaIcons';
+import NavigationClose from 'material-ui-icons/Close';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import Paper from 'material-ui/Paper';
+import { SocialIcon } from 'react-social-icons';
+import AddIcon from 'material-ui-icons/Add';
 const drawerWidth = 240;
 const primary = '#00bcd4';
  
+function TabContainer(props) {
+  return <div style={{ padding: 10 }}>{props.children}</div>;
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 const styles = theme => ({ 
   appBar: {
     position: 'absolute',
@@ -147,7 +159,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'left',
     marginLeft:12
-  }
+  },
    
 });
 
@@ -160,6 +172,8 @@ class HeaderNavMenu extends React.Component {
         value:'one',
         dense: false,
         secondary: true,
+        dialogOpen:false,
+        tabval:0
       };
     
       
@@ -167,8 +181,20 @@ class HeaderNavMenu extends React.Component {
     this.props.changeDrawerStatus(true);
   };
 
+  handleChange = (event, tabval) => {
+    console.log(event.currentTarget);
+    this.setState({ tabval });
+  };
+
   handleDrawerClose = () => {
     this.props.changeDrawerStatus(false);
+  };
+
+   handleDialogOpen = () => {
+    this.setState({dialogOpen: true});
+    };
+  handleDialogClose = () => {
+    this.setState({dialogOpen: false});
   };
 
   render() {
@@ -177,7 +203,7 @@ class HeaderNavMenu extends React.Component {
     const user = this.props.user
     const posts = this.props.post
     const status = page.drawerStatus;
-    const { dense, secondary } = this.state;    
+    const { dense, secondary, tabval} = this.state;   
     console.log("status "+status);
     const mainMenuOptions = [
         {
@@ -212,14 +238,14 @@ class HeaderNavMenu extends React.Component {
            "title": "Add another group"
         }
       ];
-
+      const selectedSocialMedia='facebook';
       const subOptions = [
         {
            "iconName": 'settings_power',
            "title": "Logout"
         }
       ];
-      
+
       const themeOptions = [
         {
            "iconName": 'invertc_olors',
@@ -366,7 +392,7 @@ class HeaderNavMenu extends React.Component {
                 <ListItem style={{paddingTop:2,paddingBottom:2}}>
                   <SocialMediaIcons socialMedias={socialMenuOptions}/>
                 <ListItemSecondaryAction>
-                      <Button fab style={{backgroundColor:primary,    width: 36,height: 35,top: 5}}>
+                      <Button fab style={{backgroundColor:primary,    width: 36,height: 35,top: 5}} onClick={this.handleDialogOpen}>
                       <Icon color="contrast" >add</Icon>
                       </Button>
                     </ListItemSecondaryAction>
@@ -384,6 +410,28 @@ class HeaderNavMenu extends React.Component {
               </List>
             </div>
           </Drawer>
+           <Dialog open={this.state.dialogOpen} onRequestClose={this.handleDialogClose}>
+          <DialogTitle style={{ padding:'10px 0px 0px 10px',fontSize: '16px' }}><div><h2 style={{ fontSize: '16px', display: "inline"}}>Add Social Medias</h2>
+             <IconButton color="default" aria-label="Menu" onClick={this.handleDialogClose.bind(this)} style={{float:'right',marginTop:'-15px'}}>
+              <NavigationClose />
+            </IconButton>
+            </div>
+          </DialogTitle>
+          <Paper style={{ width: 400, backgroundColor:"#f6f6f6" }} color="default">
+            <Tabs  value={tabval} onChange={this.handleChange}  scrollButtons="off">
+              {socialMenuOptions.map(option =>
+                <Tab color="default" style={{ minWidth: 50 }} media={option.iconName} icon={<Icon >< SocialIcon style={{ width: 40, height: 40 }} network={option.iconName} /></Icon>} />
+                    
+              )}
+            </Tabs>
+          </Paper>
+          {<TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9',fontWeight:500 }}>Connect {socialMenuOptions[tabval].iconName} to your network</p>
+            <Button style={{ fontSize: '10px',color:primary,border:'1px solid',borderColor:primary}}>
+              <AddIcon />
+              Add an Account
+            </Button>
+          </TabContainer>}
+        </Dialog>
         </div>
       
     );

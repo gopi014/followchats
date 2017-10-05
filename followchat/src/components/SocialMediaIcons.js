@@ -15,14 +15,16 @@ const styles = theme => ({
 });
 
 class SocialMediaIcons extends React.Component {
-  
+  handleSocialIcon=(option)=>{
+    console.log(option);
+  }
   render() {
     const classes = this.props.classes;
     const socialMenuOptions = this.props.socialMedias;
     return (
          <div >
           {socialMenuOptions.map(option =>
-            <IconButton key={option.title} style={{width:30}}>
+          <IconButton key={option.title} style={{ width: 30 }} onClick={() =>{this.handleSocialIcon(option)}}>
             <Avatar className={classes.iconAvatar}>
             <Icon style={{fontSize:18}}>< SocialIcon style={{width:35,height:40}}  network = {option.iconName} /></Icon>
             </Avatar>
