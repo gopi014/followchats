@@ -1,9 +1,11 @@
 import { THEME_CHANAGE, DRAWER_STATUS, PAGE_LOGIN, PAGE_HOME, PAGE_SPAM, PAGE_FORUMS, PAGE_UPDATES, PAGE_SOCIAL } from '../constants/PageActionTypes'
-
+import {drawerMenuOptions,selctMenuOptions} from '../data/data'
 const initialPageState = {
   	path: '/',
     drawerStatus: true,
     drawerWidth : 240,
+    drawerMenuOptions : drawerMenuOptions,
+    selctMenuOptions : selctMenuOptions,
     themeChange: localStorage.getItem('theme-change-event') ? true : false,
 };
 

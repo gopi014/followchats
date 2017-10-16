@@ -1,4 +1,7 @@
 import React from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as AllActions from '../actions'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
@@ -16,14 +19,14 @@ import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
-import SocialMediaIcons from '../components/SocialMediaIcons';
-import NavigationClose from 'material-ui-icons/Close';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
+import NavigationClose from 'material-ui-icons/Close';
 import { SocialIcon } from 'react-social-icons';
-import AddIcon from 'material-ui-icons/Add';
+import SocialMediaIcons from '../components/SocialMediaIcons'
+import { mailFolderListItems, otherMailFolderListItems }  from '../data/tileData';
 const drawerWidth = 240;
-const primary = '#00bcd4';
+const primary = '#00bcd4'; 
  
 function TabContainer(props) {
   return <div style={{ padding: 10 }}>{props.children}</div>;
@@ -35,7 +38,7 @@ TabContainer.propTypes = {
 
 const styles = theme => ({ 
   appBar: {
-    position: 'absolute',
+    position: 'fixed',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -54,11 +57,10 @@ const styles = theme => ({
     marginRight: 20,
   },
   hide: {
-    display: 'none',
+    display: 'none', 
   },
   drawerPaper: {
-    position: 'relative',
-    height: 1000,
+    position: 'fixed',
     width: drawerWidth,
     backgroundColor:'#10141c',
   },
@@ -82,32 +84,7 @@ const styles = theme => ({
   menuOptiontext:{
     color:'rgb(103, 100, 100)'
   },
-  content: {
-    width: '100%',
-    marginLeft: -drawerWidth,
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      content: {
-        height: 'calc(100% - 64px)',
-        marginTop: 64,
-      },
-    },
-  },
-  contentShift: {
-    marginLeft: 0,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+
   searchField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -160,11 +137,12 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'left',
     marginLeft:12
-  },
+  }
    
 });
 
 class HeaderNavMenu extends React.Component {
+<<<<<<< HEAD
   constructor(props) {
       super(props);
   };
@@ -181,6 +159,19 @@ class HeaderNavMenu extends React.Component {
                };
     
  handleDrawerOpen = () => {
+=======
+  state = {
+    open: true,
+    theme: false,
+    socialMedia: false,
+    value: 'one',
+    dense: false,
+    secondary: true,
+    settingDrawer : false,
+    tabval: 0
+  };
+  handleDrawerOpen = () => {
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
     this.props.changeDrawerStatus(true);
   };
 
@@ -193,12 +184,18 @@ class HeaderNavMenu extends React.Component {
     this.props.changeDrawerStatus(false);
   };
 
-   handleDialogOpen = () => {
-    this.setState({dialogOpen: true});
-    };
-  handleDialogClose = () => {
-    this.setState({dialogOpen: false});
+  toggleDrawer = (open) => () => {
+    this.setState({
+      settingDrawer: open,
+    });
   };
+  handleDialogOpen = () => {
+    this.setState({ dialogOpen: true });
+  };
+  handleDialogClose = () => {
+    this.setState({ dialogOpen: false });
+  };
+<<<<<<< HEAD
   
   render()  
   {
@@ -283,9 +280,17 @@ class HeaderNavMenu extends React.Component {
       }
       ]
 
+=======
+  render() {
+    const {page, posts,classes} = this.props;
+    const drawerMenuOptions = page.drawerMenuOptions;
+    const socialData = posts.socialData;
+    const status = page.drawerStatus;
+    const { dense, secondary, tabval } = this.state;     
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
     const mainMenuListItems = (
         <div>
-          {mainMenuOptions.map(option =>
+          {drawerMenuOptions.mainMenuOptions.map(option =>
             <ListItem  button key={option.title} onClick={this.handleClickListItem}>
                 <ListItemIcon>
                 <Icon className={classes.menuOptiontext}>
@@ -301,7 +306,7 @@ class HeaderNavMenu extends React.Component {
 
     const subMenuOptions = (
         <div>
-          {subOptions.map(option =>
+          {drawerMenuOptions.subOptions.map(option =>
           <ListItem  button key={option.title} onClick={this.handleClickListItem}>
             <ListItemIcon>
             <Icon className={classes.menuOptiontext}>
@@ -316,7 +321,7 @@ class HeaderNavMenu extends React.Component {
 
       const otherMenuOptions = (
         <div>
-          {otherOptions.map(option =>
+          {drawerMenuOptions.otherOptions.map(option =>
             <ListItem  button key={option.title} onClick={this.handleClickListItem}>
                 <ListItemIcon>
                 <Icon className={classes.menuOptiontext}>
@@ -329,14 +334,44 @@ class HeaderNavMenu extends React.Component {
         </div>
       );
 
+      const sideList = (
+        <div>
+          <List className={classes.list}>{mailFolderListItems}</List>
+          <Divider />
+          <List className={classes.list}>{otherMailFolderListItems}</List>
+        </div>
+      );
+  
+      const fullList = (
+        <div>
+          <List className={classes.listFull}>{mailFolderListItems}</List>
+          <Divider />
+          <List className={classes.listFull}>{otherMailFolderListItems}</List>
+        </div>
+      );
+      const settingDraw = (
+        <Drawer
+        anchor="right"
+        open={this.state.settingDrawer}
+        onRequestClose={this.toggleDrawer(false)}
+      >
+        <div tabIndex={0} role="button" onClick={this.toggleDrawer('right', false)}>
+          {sideList}
+        </div>
+      </Drawer>
+      );
      
     
     return (
      
         <div>
+<<<<<<< HEAD
        
          {console.log(this.state.iconval)};
           <AppBar className={classNames(classes.appBar, status && classes.appBarShift)}  color="default">
+=======
+          <AppBar position="fixed" className={classNames(classes.appBar, status && classes.appBarShift)}  color="default">
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
             <Toolbar disableGutters={!status}>
               <IconButton
                 aria-label="open drawer"
@@ -371,6 +406,11 @@ class HeaderNavMenu extends React.Component {
                       className={classes.composeField}
                       margin="normal"/>
             </div>
+            <IconButton aria-label="Show more" onClick={this.toggleDrawer('right', true)}>
+              <Icon style={{fontSize:35,paddingLeft:25,marginTop:12}}>
+                settings
+            </Icon>
+            </IconButton>
         
                  
             </Toolbar>
@@ -401,6 +441,7 @@ class HeaderNavMenu extends React.Component {
                   </ListItem>
               </List>
               <Divider className={classes.drawerDividerColor} />
+<<<<<<< HEAD
               <List className={classes.list} style={{paddingTop:1,paddingBottom:1}} onClick={this.handleDialogOpen}>
              
                 <ListItem  style={{paddingTop:2,paddingBottom:2}}>
@@ -408,6 +449,13 @@ class HeaderNavMenu extends React.Component {
                                  
                              <ListItemSecondaryAction>
                       <Button fab style={{backgroundColor:primary,    width: 36,height: 35,top: 5}}>
+=======
+              <List className={classes.list} style={{paddingTop:1,paddingBottom:1}}>
+                <ListItem style={{paddingTop:2,paddingBottom:2}}>
+                <SocialMediaIcons socialMedias={socialData}/>
+                <ListItemSecondaryAction>
+                  <Button fab style={{ backgroundColor: primary, width: 36, height: 35, top: 5 }} onClick={this.handleDialogOpen}>
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
                       <Icon color="contrast" >add</Icon>
                       </Button>
                     </ListItemSecondaryAction>
@@ -416,6 +464,7 @@ class HeaderNavMenu extends React.Component {
               </List>
               <Divider className={classes.drawerDividerColor} />
               <List className={classes.list}>{mainMenuListItems}</List>
+              
               <Divider className={classes.drawerDividerColor} />
               <List className={classes.list}>{otherMenuOptions}
               </List>
@@ -426,6 +475,7 @@ class HeaderNavMenu extends React.Component {
               </List>
             </div>
           </Drawer>
+<<<<<<< HEAD
           
            <Dialog open={this.state.dialogOpen} onRequestClose={this.handleDialogClose}>
           <DialogTitle style={{ padding:'10px 0px 0px 10px',fontSize: '16px' }}><div><h2 style={{ fontSize: '16px', display: "inline"}}>Add Social Medias</h2>
@@ -447,21 +497,52 @@ class HeaderNavMenu extends React.Component {
           { <TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9',fontWeight:500 }}>Connect {socialMenuOptions[tabval].iconName} to your network</p>
             <Button style={{ fontSize: '10px',color:primary,border:'1px solid',borderColor:primary}}>
               <AddIcon />
+=======
+          {settingDraw}
+          <Dialog open={this.state.dialogOpen} onRequestClose={this.handleDialogClose}>
+            <DialogTitle style={{ padding: '10px 0px 0px 10px', fontSize: '16px' }}><div><h2 style={{ fontSize: '16px', display: "inline" }}>Add Social Medias</h2>
+              <IconButton color="default" aria-label="Menu" onClick={this.handleDialogClose.bind(this)} style={{ float: 'right', marginTop: '-15px' }}>
+                <NavigationClose />
+              </IconButton>
+            </div>
+            </DialogTitle>
+            <Paper style={{ width: 400, backgroundColor: "#f6f6f6" }} color="default">
+              <Tabs value={tabval} onChange={this.handleChange} scrollButtons="off">
+              {socialData.map(option =>
+                <Tab color="default" style={{ minWidth: 50 }} media={option.name} icon={<Icon >< SocialIcon style={{ width: 40, height: 40 }} network={option.icon} /></Icon>} />
+
+                )}
+              </Tabs>
+            </Paper>
+            {<TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9', fontWeight: 500 }}>Connect {socialData[tabval].icon} to your network</p>
+              <Button style={{ fontSize: '10px', color: primary, border: '1px solid', borderColor: primary }}>
+              <Icon color="#A9A9A9" >add</Icon>
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
               Add an Account
             </Button>
-          </TabContainer>}
-        </Dialog>
+            </TabContainer>}
+          </Dialog>
         </div>
       
     );
   }
-}
+} 
 
 HeaderNavMenu.propTypes = {
   classes: PropTypes.object.isRequired,
-  user:  PropTypes.object.isRequired,
-  page:  PropTypes.object.isRequired,
   changeDrawerStatus:  PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(HeaderNavMenu);
+const mapStateToProps = state => ({
+  page:  state.page,
+  posts:  state.posts
+})
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(AllActions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+) (withStyles(styles)(HeaderNavMenu));

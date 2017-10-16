@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+=======
+import React from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as AllActions from '../actions'
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
@@ -17,6 +24,7 @@ const styles = theme => ({
 });
 
 class SocialMediaIcons extends React.Component {
+<<<<<<< HEAD
   // constructor(props) {
   //   super(props);
   //  this.state={
@@ -30,6 +38,16 @@ state={iconval:0}
     console.log(event.currentTarget.value)
   };
  
+=======
+  
+
+  showSocial = (index) => {
+    console.log(index);
+    this.props.actions.showSocial(index);
+  };
+
+
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
   render() {
     const classes = this.props.classes;
     const socialMenuOptions = this.props.socialMedias;
@@ -45,10 +63,20 @@ state={iconval:0}
     return (
          <div >
           {socialMenuOptions.map(option =>
+<<<<<<< HEAD
           <IconButton value={option.id} key={option.title} onClick={this.handleChange} style={{ width: 30 }} >
             <Avatar className={classes.iconAvatar}>
             <Icon style={{fontSize:18}} >< SocialIcon style={{width:35,height:40}}  network = {option.iconName} /></Icon>
             
+=======
+            <IconButton 
+              key={option.name} 
+              style={{width:30}}  
+              onClick={()=>{this.showSocial(option.id)}}
+            >
+            <Avatar className={classes.iconAvatar}>
+            <Icon style={{fontSize:18}}>< SocialIcon style={{width:35,height:40}}  network = {option.icon} /></Icon>
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
             </Avatar>
           </IconButton>
             )}
@@ -66,4 +94,19 @@ SocialMediaIcons.propTypes = {
 };
 
 
+<<<<<<< HEAD
 export default withStyles(styles)(SocialMediaIcons);
+=======
+const mapStateToProps = state => ({
+  posts: state.posts
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AllActions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+) (withStyles(styles)(SocialMediaIcons));
+>>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df

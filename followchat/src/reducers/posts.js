@@ -1,5 +1,5 @@
-import { FETCH_POSTS, FETCH_POSTS_REJECTED, FETCH_POSTS_FULFILLED, ADD_POST, UPDATE_POST, DELETE_POST } from '../constants/PostActionTypes'
-
+import * as PostActions from '../constants/PostActionTypes'
+import {socialData,dashSlideData} from '../data/data'
 
 // Post Initial State.
 const initialState = {
@@ -7,17 +7,28 @@ const initialState = {
     fetching: false,
     fetched: false,
     error: null,
+    socialData : socialData,
+    dashSlideData : dashSlideData
 }
 
 export default function reducer(state=initialState, action) {
     switch (action.type) {
-      case FETCH_POSTS: {
-        return {...state, fetching: true}
+      case PostActions.FETCH_POSTS: {
+        const { id } = action.payload
+        const updatedPosts = [...state.socialData]
+        const postToUpdate = updatedPosts.findIndex(item => item.id === id)
+        for ( var i = 0; i < 5; i++ ) {
+          updatedPosts[postToUpdate].posts.push(updatedPosts[postToUpdate].posts[i % updatedPosts[postToUpdate].posts.length]);
+        }
+        return {
+          ...state,
+          socialData: updatedPosts,
+        }
       }
-      case FETCH_POSTS_REJECTED: {
+      case PostActions.FETCH_POSTS_REJECTED: {
         return {...state, fetching: false, error: action.payload}
       }
-      case FETCH_POSTS_FULFILLED: {
+      case PostActions.FETCH_POSTS_FULFILLED: {
         return {
           ...state,
           fetching: false,
@@ -25,13 +36,13 @@ export default function reducer(state=initialState, action) {
           posts: action.payload,
         }
       }
-      case ADD_POST: {
+      case PostActions.ADD_POST: {
         return {
           ...state,
           posts: [...state.posts, action.payload],
         }
       }
-      case UPDATE_POST: {
+      case PostActions.UPDATE_POST: {
         const { id } = action.payload
         const newPosts = [...state.posts]
         const postToUpdate = newPosts.findIndex(post => post.id === id)
@@ -42,12 +53,35 @@ export default function reducer(state=initialState, action) {
           posts: newPosts,
         }
       }
-      case DELETE_POST: {
+      case PostActions.DELETE_POST: {
         return {
           ...state,
           posts: state.posts.filter(post => post.id !== action.payload),
         }
       }
+
+      case PostActions.HIDE_SOCIAL: {
+        const { id } = action.payload
+        const updatedPosts = [...state.socialData]
+        const postToUpdate = updatedPosts.findIndex(item => item.id === id)
+        updatedPosts[postToUpdate].isHidden = true;
+        return {
+          ...state,
+          socialData: updatedPosts,
+        }
+      }
+      
+      case PostActions.SHOW_SOCIAL: {
+        const { id } = action.payload
+        const updatedPosts = [...state.socialData]
+        const postToUpdate = updatedPosts.findIndex(item => item.id === id)
+        updatedPosts[postToUpdate].isHidden = false;
+        return {
+          ...state,
+          socialData: updatedPosts,
+        }
+      }
+      
       default: {
         return state
       }
