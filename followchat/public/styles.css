@@ -216,10 +216,10 @@ _:-ms-input-placeholder, :root .demo-graph {
 }
 
  
-.searchTextclass .MuiInput-underline-118:before{
+.searchTextclass .MuiInput-underline-115:before{
   background-color: transparent !important;
 }
 
-.searchTextclass .MuiInput-underline-118:after{
+.searchTextclass .MuiInput-underline-115:after{
   background-color: transparent !important;
 }

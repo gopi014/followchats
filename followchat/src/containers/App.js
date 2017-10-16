@@ -13,8 +13,9 @@ import classNames from 'classnames';
 // Custom components
 import HeaderNavMenu from '../components/HeaderNavMenu'
 import AppFooter from '../components/AppFooter'
-import MainContainer from '../components/MainContainer'
-import RecipeReviewCard from '../components/RecipeReviewCard'
+import SocialCard from '../components/SocialCard'
+import DashSlider from '../components/DashSlider'
+
 // All registered Actions.
 import * as AllActions from '../actions'
 
@@ -24,7 +25,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import purple from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-
 const theme1 = createMuiTheme({
   palette: {
     type:  'light', // Switching the dark mode on is a single property value change.
@@ -45,8 +45,9 @@ const theme2 = createMuiTheme({
 
 const styles = theme => ({
 content: {
+  height:600,
   width: '100%',
-  marginLeft: -drawerWidth,
+  marginLeft: 0,
   flexGrow: 1,
   backgroundColor: theme.palette.background.default,
   padding: 0,
@@ -64,7 +65,7 @@ content: {
   },
 },
 contentShift: {
-  marginLeft: 0,
+  marginLeft: drawerWidth,
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.easeOut,
     duration: theme.transitions.duration.enteringScreen,
@@ -73,17 +74,14 @@ contentShift: {
 root: {
   width: '100%',
   zIndex: 1,
+  height: 600,
 },
 appFrame: {
   position: 'relative',
   display: 'flex',
   width: '100%',
   height: '100%',
-},
-row: {
-  display: 'flex',
-  justifyContent: 'center',
-},
+}
 });
 
 class App extends Component {
@@ -150,14 +148,11 @@ class App extends Component {
       <MuiThemeProvider theme={changedTheme ? theme2 : theme1}>
        <div className={classes.root}>
         <div className={classes.appFrame}>
-          <HeaderNavMenu page={page} user={user} posts={posts}  changeDrawerStatus={this.props.actions.changeDrawerStatus}/>
+          <HeaderNavMenu  changeDrawerStatus={this.props.actions.changeDrawerStatus}/>
           <main className={classNames(classes.content, page.drawerStatus && classes.contentShift)} >
                 {/* <MainContainer page={page} user={user} posts={posts} /> */}
-              <div  className={classes.row}>
-                <RecipeReviewCard/>
-                <RecipeReviewCard/>
-                <RecipeReviewCard/>
-               </div> 
+                <DashSlider/>
+                <SocialCard />
           </main>
           {/* <AppFooter  user={user} /> */}
         </div>

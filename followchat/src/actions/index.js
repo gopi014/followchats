@@ -7,9 +7,11 @@ axios.defaults.baseURL = 'http://dev.followchats.com/api/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export function fetchTweets() {
-  return function(dispatch) {
-    dispatch({type: postTypes.FETCH_POSTS});
-    
+  return function (dispatch) {
+    dispatch({
+      type: postTypes.FETCH_POSTS
+    });
+
     /* 
       http://rest.learncode.academy is a public test server, so another user's experimentation can break your tests
       If you get console errors due to bad data:
@@ -18,67 +20,80 @@ export function fetchTweets() {
     */
     axios.get("http://rest.learncode.academy/api/reacttest/tweets")
       .then((response) => {
-        dispatch({type: postTypes.FETCH_POSTS_FULFILLED, payload: response.data})
+        dispatch({
+          type: postTypes.FETCH_POSTS_FULFILLED,
+          payload: response.data
+        })
       })
       .catch((err) => {
-        dispatch({type: postTypes.FETCH_POSTS_REJECTED, payload: err})
+        dispatch({
+          type: postTypes.FETCH_POSTS_REJECTED,
+          payload: err
+        })
       })
   }
 }
 
 export function changeThemeStatus(status) {
-   return function(dispatch) {
-      dispatch({
-          type: pageTypes.THEME_CHANAGE,
-          payload: {
-              status: status
-          }
-      });
-    }
+  return function (dispatch) {
+    dispatch({
+      type: pageTypes.THEME_CHANAGE,
+      payload: {
+        status: status
+      }
+    });
+  }
 }
 
 export function changeDrawerStatus(status) {
-   return function(dispatch) {
-      dispatch({
-          type: pageTypes.DRAWER_STATUS,
-          payload: {
-              status: status
-          }
-      });
-    }
+  return function (dispatch) {
+    dispatch({
+      type: pageTypes.DRAWER_STATUS,
+      payload: {
+        status: status
+      }
+    });
+  }
 }
 
 export function loginRestoreEvent(email, password, token) {
-   return function(dispatch) {
-      dispatch({
-          type: loginTypes.LOGIN_RESTORE,
-          payload: {
-              email: email,
-              password: password,
-              token: token
-          }
-      });
+  return function (dispatch) {
+    dispatch({
+      type: loginTypes.LOGIN_RESTORE,
+      payload: {
+        email: email,
+        password: password,
+        token: token
+      }
+    });
   };
 }
 
 export function loginUser(email, password) {
-  return function(dispatch) {
-    dispatch({type: loginTypes.LOGIN_PROCESS});
-      dispatch({
-          type: pageTypes.THEME_CHANAGE,
-          payload: {
-              status: false
-          }
-      });
+  return function (dispatch) {
+    dispatch({
+      type: loginTypes.LOGIN_PROCESS
+    });
+    dispatch({
+      type: pageTypes.THEME_CHANAGE,
+      payload: {
+        status: false
+      }
+    });
 
-      dispatch({
-          type: pageTypes.DRAWER_STATUS,
-          payload: {
-              status: true
-          }
-      });
-    
-    var requstBody = { body : {email:email, password:password} };
+    dispatch({
+      type: pageTypes.DRAWER_STATUS,
+      payload: {
+        status: true
+      }
+    });
+
+    var requstBody = {
+      body: {
+        email: email,
+        password: password
+      }
+    };
 
     axios.post('authenticate/', requstBody)
       .then((response) => {
@@ -89,54 +104,61 @@ export function loginUser(email, password) {
             payload: {
               email: email,
               password: password,
-              token: token 
-          }})
+              token: token
+            }
+          })
         } else {
           dispatch({
             type: loginTypes.LOGIN_REJECTED,
-            payload: (response.data.msg ? response.data.msg : "Error while logged in by user") 
+            payload: (response.data.msg ? response.data.msg : "Error while logged in by user")
           })
         }
       })
       .catch((err) => {
-        dispatch({type: loginTypes.LOGIN_REJECTED, payload: err})
+        dispatch({
+          type: loginTypes.LOGIN_REJECTED,
+          payload: err
+        })
       })
   }
 }
 
 export function logOut() {
-   return function(dispatch) {
+  return function (dispatch) {
 
+    dispatch({
+      type: loginTypes.LOGOUT,
+      payload: {
+        email: "",
+        password: "",
+        token: ""
+      }
+    });
+
+
+    setTimeout(function () {
       dispatch({
-          type: loginTypes.LOGOUT,
-          payload: {
-              email: "",
-              password: "",
-              token: "" 
-          }
+        type: pageTypes.THEME_CHANAGE,
+        payload: {
+          status: false
+        }
       });
 
-
-    setTimeout(function() { 
       dispatch({
-          type: pageTypes.THEME_CHANAGE,
-          payload: {
-              status: false
-          }
-      });
-
-      dispatch({
-          type: pageTypes.DRAWER_STATUS,
-          payload: {
-              status: false
-          }
+        type: pageTypes.DRAWER_STATUS,
+        payload: {
+          status: false
+        }
       });
     }.bind(this), 10);
 
 
-    }
+  }
 }
 
+
+
+//Posts
 export function addPost(id, text) {
   return {
     type: postTypes.ADD_POST,
@@ -147,5 +169,40 @@ export function addPost(id, text) {
   }
 }
 
-export const deletePost = id => ({ type: postTypes.DELETE_POST, id })
-export const editPost = (id, text) => ({ type: postTypes.UPDATE_POST, id, text })
+export function fetchPosts(id) {
+  return {
+    type: postTypes.FETCH_POSTS,
+    payload: {
+      id
+    },
+  }
+}
+
+ 
+export const hideSocial = id => ({
+  type: postTypes.HIDE_SOCIAL,
+  payload: {
+    id
+  }
+})
+
+
+export const showSocial = id => ({
+  type: postTypes.SHOW_SOCIAL,
+  payload: {
+    id
+  }
+})
+
+export const deletePost = id => ({
+  type: postTypes.DELETE_POST,
+  payload: {
+    id
+  }
+})
+
+export const editPost = (id, text) => ({
+  type: postTypes.UPDATE_POST,
+  id,
+  text
+})

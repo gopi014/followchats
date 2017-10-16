@@ -1,4 +1,7 @@
 import React from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as AllActions from '../actions'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
@@ -15,18 +18,27 @@ const styles = theme => ({
 });
 
 class SocialMediaIcons extends React.Component {
-  handleSocialIcon=(option)=>{
-    console.log(option);
-  }
+  
+
+  showSocial = (index) => {
+    console.log(index);
+    this.props.actions.showSocial(index);
+  };
+
+
   render() {
     const classes = this.props.classes;
     const socialMenuOptions = this.props.socialMedias;
     return (
          <div >
           {socialMenuOptions.map(option =>
-          <IconButton key={option.title} style={{ width: 30 }} onClick={() =>{this.handleSocialIcon(option)}}>
+            <IconButton 
+              key={option.name} 
+              style={{width:30}}  
+              onClick={()=>{this.showSocial(option.id)}}
+            >
             <Avatar className={classes.iconAvatar}>
-            <Icon style={{fontSize:18}}>< SocialIcon style={{width:35,height:40}}  network = {option.iconName} /></Icon>
+            <Icon style={{fontSize:18}}>< SocialIcon style={{width:35,height:40}}  network = {option.icon} /></Icon>
             </Avatar>
           </IconButton>
             )}
@@ -39,4 +51,16 @@ SocialMediaIcons.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SocialMediaIcons);
+
+const mapStateToProps = state => ({
+  posts: state.posts
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AllActions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+) (withStyles(styles)(SocialMediaIcons));
