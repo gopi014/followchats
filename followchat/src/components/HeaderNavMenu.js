@@ -32,6 +32,7 @@ function TabContainer(props) {
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
 const styles = theme => ({ 
   appBar: {
     position: 'absolute',
@@ -164,8 +165,11 @@ const styles = theme => ({
 });
 
 class HeaderNavMenu extends React.Component {
-
-    state = {
+  constructor(props) {
+      super(props);
+  };
+    
+      state = {
         open: true,
         theme: false,
         socialMedia:false,
@@ -173,18 +177,17 @@ class HeaderNavMenu extends React.Component {
         dense: false,
         secondary: true,
         dialogOpen:false,
-        tabval:0
-      };
+        tabval:0,
+               };
     
-      
-  handleDrawerOpen = () => {
+ handleDrawerOpen = () => {
     this.props.changeDrawerStatus(true);
   };
 
   handleChange = (event, tabval) => {
     console.log(event.currentTarget);
     this.setState({ tabval });
-  };
+      };
 
   handleDrawerClose = () => {
     this.props.changeDrawerStatus(false);
@@ -196,14 +199,18 @@ class HeaderNavMenu extends React.Component {
   handleDialogClose = () => {
     this.setState({dialogOpen: false});
   };
-
-  render() {
+  
+  render()  
+  {
     const { classes } = this.props;
     const page = this.props.page
     const user = this.props.user
     const posts = this.props.post
     const status = page.drawerStatus;
-    const { dense, secondary, tabval} = this.state;   
+    const { dense, secondary, tabval} = this.state; 
+   const iconval =this.props.iconval;
+
+   console.log(iconval);
     console.log("status "+status);
     const mainMenuOptions = [
         {
@@ -255,18 +262,22 @@ class HeaderNavMenu extends React.Component {
 
       const socialMenuOptions=[
         {
+          "id":'0',
           "iconName": 'facebook',
           "title": "Facebook"
        },
        {
+        "id":'1',
         "iconName": 'twitter',
         "title": "Twitter"
        },
         {
+          "id":'2',
           "iconName": 'pinterest',
           "title": "Pinterest"
         },
       {
+        "id":'3',
         "iconName": 'google',
         "title": "Google"
       }
@@ -319,10 +330,12 @@ class HeaderNavMenu extends React.Component {
       );
 
      
-
+    
     return (
-      
+     
         <div>
+       
+         {console.log(this.state.iconval)};
           <AppBar className={classNames(classes.appBar, status && classes.appBarShift)}  color="default">
             <Toolbar disableGutters={!status}>
               <IconButton
@@ -388,15 +401,18 @@ class HeaderNavMenu extends React.Component {
                   </ListItem>
               </List>
               <Divider className={classes.drawerDividerColor} />
-              <List className={classes.list} style={{paddingTop:1,paddingBottom:1}}>
-                <ListItem style={{paddingTop:2,paddingBottom:2}}>
-                  <SocialMediaIcons socialMedias={socialMenuOptions}/>
-                <ListItemSecondaryAction>
-                      <Button fab style={{backgroundColor:primary,    width: 36,height: 35,top: 5}} onClick={this.handleDialogOpen}>
+              <List className={classes.list} style={{paddingTop:1,paddingBottom:1}} onClick={this.handleDialogOpen}>
+             
+                <ListItem  style={{paddingTop:2,paddingBottom:2}}>
+                      <SocialMediaIcons socialMedias={socialMenuOptions} /> 
+                                 
+                             <ListItemSecondaryAction>
+                      <Button fab style={{backgroundColor:primary,    width: 36,height: 35,top: 5}}>
                       <Icon color="contrast" >add</Icon>
                       </Button>
                     </ListItemSecondaryAction>
               </ListItem>
+          
               </List>
               <Divider className={classes.drawerDividerColor} />
               <List className={classes.list}>{mainMenuListItems}</List>
@@ -410,6 +426,7 @@ class HeaderNavMenu extends React.Component {
               </List>
             </div>
           </Drawer>
+          
            <Dialog open={this.state.dialogOpen} onRequestClose={this.handleDialogClose}>
           <DialogTitle style={{ padding:'10px 0px 0px 10px',fontSize: '16px' }}><div><h2 style={{ fontSize: '16px', display: "inline"}}>Add Social Medias</h2>
              <IconButton color="default" aria-label="Menu" onClick={this.handleDialogClose.bind(this)} style={{float:'right',marginTop:'-15px'}}>
@@ -418,14 +435,16 @@ class HeaderNavMenu extends React.Component {
             </div>
           </DialogTitle>
           <Paper style={{ width: 400, backgroundColor:"#f6f6f6" }} color="default">
-            <Tabs  value={tabval} onChange={this.handleChange}  scrollButtons="off">
+            <Tabs value={tabval} onChange={this.handleChange} scrollButtons="off">
               {socialMenuOptions.map(option =>
-                <Tab color="default" style={{ minWidth: 50 }} media={option.iconName} icon={<Icon >< SocialIcon style={{ width: 40, height: 40 }} network={option.iconName} /></Icon>} />
+
+                <Tab  color="default" style={{ minWidth: 50 }} media={option.iconName} icon={<Icon >< SocialIcon style={{ width: 40, height: 40 }} network={option.iconName} /></Icon>} />
                     
               )}
             </Tabs>
           </Paper>
-          {<TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9',fontWeight:500 }}>Connect {socialMenuOptions[tabval].iconName} to your network</p>
+
+          { <TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9',fontWeight:500 }}>Connect {socialMenuOptions[tabval].iconName} to your network</p>
             <Button style={{ fontSize: '10px',color:primary,border:'1px solid',borderColor:primary}}>
               <AddIcon />
               Add an Account
