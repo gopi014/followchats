@@ -1,5 +1,100 @@
 // This file is shared static data.
-
+export const intData =
+[
+    {
+        "id" : 0,
+        "itemTitle" : "My Post",
+        "socialName" : "Facebook",
+        "icon" : "facebook",
+        "isHidden" : false,
+        "posts": [{
+            "name" : "Siddappa Mirji",
+            "timeofPost" : "13 hrs ago",
+            "profileImage" : "SID",
+            "place" : "Newyork",
+            "connectedMedia": [
+                 {
+                    "icon": 'pinterest',
+                    "socialName": "Pinterest"
+                },
+                          ],
+            "postData": {
+                "media": true,
+                "mediaType": "image",
+                "mediaUrl": require("../images/interstellardd.jpg"),
+                "description": "Sample text about the media",
+                "otherData": "Other data"
+            }
+        },
+        {
+            "name" : "Siddappa Mirji",
+            "timeofPost" : "3 mins ago",
+            "profileImage" : "SM",
+            "place" : "San fransisco",
+            "connectedMedia": [
+                {
+                    "icon": 'facebook',
+                    "socialName": "Facebook"
+                },
+                           ],
+            "postData": {
+                "media": true,
+                "mediaType": "image",
+                "mediaUrl": require("../images/interstellardd.jpg"),
+                "description": "Sample facebook text about the media",
+                "otherData": "Other data facebook"
+            }
+        }
+        ]
+    },
+    {
+        "id" : 1,
+        "itemTitle" : "Scheduled",
+        "name": "Google",
+        "icon": "google",
+        "isHidden" : false,
+        "posts": [{
+            "name" : "Siddappa Mirji",
+            "timeofPost" : "1 min ago",
+            "profileImage" : "SM",
+            "place" : "San fransisco",
+            "connectedMedia": [
+                {
+                    "icon": 'google',
+                    "socialName": "Google"
+                },
+                           ],
+            "postData": {
+                "media": true,
+                "mediaType": "image",
+                "mediaUrl": require("../images/interstellardd.jpg"),
+                "description": "Sample text about the media",
+                "otherData": "Other data"
+            }
+        },
+        {
+            "name" : "Siddappa Mirji",
+            "timeofPost" : "12 hrs ago",
+            "profileImage" : "S",
+            "place" : "Newyork",
+            "connectedMedia": [
+                          {
+                    "icon": 'twitter',
+                    "socialName": "Twitter"
+                },
+                     ],
+            "postData": {
+                "media": true,
+                "mediaType": "image",
+                "mediaUrl": require("../images/interstellardd.jpg"),
+                "description": "Sample facebook text about the media",
+                "otherData": "Other data facebook"
+            }
+        }
+        ]
+    },
+       
+];
 export const socialData =
 [
     {
@@ -182,7 +277,15 @@ export const socialData =
     }
 ];
 
-
+export const interestSlideData = [
+    {
+        "image" : require("../images/facebook.png")
+    },
+    {"image" : require("../images/interstellardd.jpg")
+},
+{"image" : require("../images/nike.png")
+}
+];
 export const dashSlideData = [
     {
         "title" : "60%",

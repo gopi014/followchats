@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 import { withCookies, Cookies } from 'react-cookie';
 import axios from "axios";
 import { withStyles } from 'material-ui/styles';
+import Interest from '../components/Interest';
+import InterestCard from '../components/InterestCard';
+
 
 // Custom Pages
 
@@ -109,6 +112,7 @@ class App extends Component {
   }
  
   render() {
+    
     const { cookies } = this.props;
     var email = cookies.get('email') || '';
     var token = cookies.get('token') || '';
@@ -142,8 +146,23 @@ class App extends Component {
           </MuiThemeProvider >
         );
     }
-    
+   
     const changedTheme = page.themeChange ? page.themeChange : localStorage.getItem('theme-change-event');
+    var pagename;
+ switch(page.selectedMenuItem){
+  case 'Dashboard':
+  pagename= <SocialCard/>;
+  break;
+  case 'Interest':
+  pagename= <Interest/>;
+  break;
+  default: 
+  pagename= <SocialCard/>;
+  break;
+};
+
+console.log(pagename)
+  
     return (
       <MuiThemeProvider theme={changedTheme ? theme2 : theme1}>
        <div className={classes.root}>
@@ -152,7 +171,8 @@ class App extends Component {
           <main className={classNames(classes.content, page.drawerStatus && classes.contentShift)} >
                 {/* <MainContainer page={page} user={user} posts={posts} /> */}
                 <DashSlider/>
-                <SocialCard />
+                
+               {pagename}
           </main>
           {/* <AppFooter  user={user} /> */}
         </div>

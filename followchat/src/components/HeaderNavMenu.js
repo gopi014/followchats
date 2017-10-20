@@ -142,24 +142,6 @@ const styles = theme => ({
 });
 
 class HeaderNavMenu extends React.Component {
-<<<<<<< HEAD
-  constructor(props) {
-      super(props);
-  };
-    
-      state = {
-        open: true,
-        theme: false,
-        socialMedia:false,
-        value:'one',
-        dense: false,
-        secondary: true,
-        dialogOpen:false,
-        tabval:0,
-               };
-    
- handleDrawerOpen = () => {
-=======
   state = {
     open: true,
     theme: false,
@@ -171,10 +153,12 @@ class HeaderNavMenu extends React.Component {
     tabval: 0
   };
   handleDrawerOpen = () => {
->>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
     this.props.changeDrawerStatus(true);
   };
-
+  handleClickListItem = (title) => {
+    console.log(title);
+    this.props.actions.changeSelectedItem(title);
+  };
   handleChange = (event, tabval) => {
     console.log(event.currentTarget);
     this.setState({ tabval });
@@ -195,103 +179,17 @@ class HeaderNavMenu extends React.Component {
   handleDialogClose = () => {
     this.setState({ dialogOpen: false });
   };
-<<<<<<< HEAD
-  
-  render()  
-  {
-    const { classes } = this.props;
-    const page = this.props.page
-    const user = this.props.user
-    const posts = this.props.post
-    const status = page.drawerStatus;
-    const { dense, secondary, tabval} = this.state; 
-   const iconval =this.props.iconval;
-
-   console.log(iconval);
-    console.log("status "+status);
-    const mainMenuOptions = [
-        {
-           "iconName": 'chat',
-           "title": "Follow Chats"
-        },
-        {
-           "iconName": 'poll',
-           "title": "Competetors"
-        },
-        {
-           "iconName": 'star',
-           "title": "Interest"
-        },
-        {
-           "iconName": 'public',
-           "title": "Connected Medias"
-        },
-        {
-            "iconName": 'volume_up',
-            "title": "Campaign"
-        },
-        {
-            "iconName": 'free_breakfast',
-            "title": "Foodie Group"
-        },
-      ];
-     
-      const otherOptions = [
-        {
-           "iconName": 'group_add',
-           "title": "Add another group"
-        }
-      ];
-      const selectedSocialMedia='facebook';
-      const subOptions = [
-        {
-           "iconName": 'settings_power',
-           "title": "Logout"
-        }
-      ];
-
-      const themeOptions = [
-        {
-           "iconName": 'invertc_olors',
-           "title": "Theme"
-        }
-      ];
-
-      const socialMenuOptions=[
-        {
-          "id":'0',
-          "iconName": 'facebook',
-          "title": "Facebook"
-       },
-       {
-        "id":'1',
-        "iconName": 'twitter',
-        "title": "Twitter"
-       },
-        {
-          "id":'2',
-          "iconName": 'pinterest',
-          "title": "Pinterest"
-        },
-      {
-        "id":'3',
-        "iconName": 'google',
-        "title": "Google"
-      }
-      ]
-
-=======
   render() {
     const {page, posts,classes} = this.props;
     const drawerMenuOptions = page.drawerMenuOptions;
     const socialData = posts.socialData;
     const status = page.drawerStatus;
-    const { dense, secondary, tabval } = this.state;     
->>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
-    const mainMenuListItems = (
+    const { dense, secondary, tabval } = this.state; 
+    
+        const mainMenuListItems = (
         <div>
           {drawerMenuOptions.mainMenuOptions.map(option =>
-            <ListItem  button key={option.title} onClick={this.handleClickListItem}>
+            <ListItem  button key={option.title} onClick={()=>{this.handleClickListItem(option.title)}}>
                 <ListItemIcon>
                 <Icon className={classes.menuOptiontext}>
                    {option.iconName}
@@ -307,7 +205,7 @@ class HeaderNavMenu extends React.Component {
     const subMenuOptions = (
         <div>
           {drawerMenuOptions.subOptions.map(option =>
-          <ListItem  button key={option.title} onClick={this.handleClickListItem}>
+          <ListItem  button key={option.title} onClick={()=>{this.handleClickListItem(option.title)}}>
             <ListItemIcon>
             <Icon className={classes.menuOptiontext}>
                {option.iconName}
@@ -365,13 +263,7 @@ class HeaderNavMenu extends React.Component {
     return (
      
         <div>
-<<<<<<< HEAD
-       
-         {console.log(this.state.iconval)};
-          <AppBar className={classNames(classes.appBar, status && classes.appBarShift)}  color="default">
-=======
           <AppBar position="fixed" className={classNames(classes.appBar, status && classes.appBarShift)}  color="default">
->>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
             <Toolbar disableGutters={!status}>
               <IconButton
                 aria-label="open drawer"
@@ -441,21 +333,11 @@ class HeaderNavMenu extends React.Component {
                   </ListItem>
               </List>
               <Divider className={classes.drawerDividerColor} />
-<<<<<<< HEAD
               <List className={classes.list} style={{paddingTop:1,paddingBottom:1}} onClick={this.handleDialogOpen}>
-             
-                <ListItem  style={{paddingTop:2,paddingBottom:2}}>
-                      <SocialMediaIcons socialMedias={socialMenuOptions} /> 
-                                 
-                             <ListItemSecondaryAction>
-                      <Button fab style={{backgroundColor:primary,    width: 36,height: 35,top: 5}}>
-=======
-              <List className={classes.list} style={{paddingTop:1,paddingBottom:1}}>
                 <ListItem style={{paddingTop:2,paddingBottom:2}}>
                 <SocialMediaIcons socialMedias={socialData}/>
                 <ListItemSecondaryAction>
-                  <Button fab style={{ backgroundColor: primary, width: 36, height: 35, top: 5 }} onClick={this.handleDialogOpen}>
->>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
+                  <Button fab style={{ backgroundColor: primary, width: 36, height: 35, top: 5 }}>
                       <Icon color="contrast" >add</Icon>
                       </Button>
                     </ListItemSecondaryAction>
@@ -475,29 +357,6 @@ class HeaderNavMenu extends React.Component {
               </List>
             </div>
           </Drawer>
-<<<<<<< HEAD
-          
-           <Dialog open={this.state.dialogOpen} onRequestClose={this.handleDialogClose}>
-          <DialogTitle style={{ padding:'10px 0px 0px 10px',fontSize: '16px' }}><div><h2 style={{ fontSize: '16px', display: "inline"}}>Add Social Medias</h2>
-             <IconButton color="default" aria-label="Menu" onClick={this.handleDialogClose.bind(this)} style={{float:'right',marginTop:'-15px'}}>
-              <NavigationClose />
-            </IconButton>
-            </div>
-          </DialogTitle>
-          <Paper style={{ width: 400, backgroundColor:"#f6f6f6" }} color="default">
-            <Tabs value={tabval} onChange={this.handleChange} scrollButtons="off">
-              {socialMenuOptions.map(option =>
-
-                <Tab  color="default" style={{ minWidth: 50 }} media={option.iconName} icon={<Icon >< SocialIcon style={{ width: 40, height: 40 }} network={option.iconName} /></Icon>} />
-                    
-              )}
-            </Tabs>
-          </Paper>
-
-          { <TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9',fontWeight:500 }}>Connect {socialMenuOptions[tabval].iconName} to your network</p>
-            <Button style={{ fontSize: '10px',color:primary,border:'1px solid',borderColor:primary}}>
-              <AddIcon />
-=======
           {settingDraw}
           <Dialog open={this.state.dialogOpen} onRequestClose={this.handleDialogClose}>
             <DialogTitle style={{ padding: '10px 0px 0px 10px', fontSize: '16px' }}><div><h2 style={{ fontSize: '16px', display: "inline" }}>Add Social Medias</h2>
@@ -517,7 +376,6 @@ class HeaderNavMenu extends React.Component {
             {<TabContainer><p style={{ fontSize: '20px', color: '#A9A9A9', fontWeight: 500 }}>Connect {socialData[tabval].icon} to your network</p>
               <Button style={{ fontSize: '10px', color: primary, border: '1px solid', borderColor: primary }}>
               <Icon color="#A9A9A9" >add</Icon>
->>>>>>> 624a3b19bd9c4f2cef90181e655ff812aa7547df
               Add an Account
             </Button>
             </TabContainer>}

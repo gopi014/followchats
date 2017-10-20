@@ -68,7 +68,7 @@ class PostData extends React.Component {
           {postItem.profileImage}
         </Avatar>
       }
-      title= {postItem.name}
+      title= {postItem.name }
       subheader={postItem.date}
     />
     <List style={{ paddingTop: 1, paddingBottom: 1 }}>

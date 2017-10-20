@@ -1,5 +1,7 @@
 import * as PostActions from '../constants/PostActionTypes'
-import {socialData,dashSlideData} from '../data/data'
+import {socialData,dashSlideData,interestSlideData,intData} from '../data/data'
+
+
 
 // Post Initial State.
 const initialState = {
@@ -8,7 +10,9 @@ const initialState = {
     fetched: false,
     error: null,
     socialData : socialData,
-    dashSlideData : dashSlideData
+    dashSlideData : dashSlideData,
+    interestSlideData:interestSlideData,
+    intData:intData
 }
 
 export default function reducer(state=initialState, action) {

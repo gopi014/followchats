@@ -7,4 +7,6 @@ export const PAGE_SOCIAL = 'SOCIAL'
 
 export const DRAWER_STATUS = 'DRAWER_STATUS'
 
+export const SELECTED_MENU_ITEM='SELECTED_MENU_ITEM'
+
 export const THEME_CHANAGE = 'THEME_CHANAGE'

@@ -55,7 +55,16 @@ export function changeDrawerStatus(status) {
     });
   }
 }
-
+export function changeSelectedItem(selected) {
+  return function (dispatch) {
+    dispatch({
+      type: pageTypes.SELECTED_MENU_ITEM,
+      payload: {
+        selected: selected
+      }
+    });
+  }
+}
 export function loginRestoreEvent(email, password, token) {
   return function (dispatch) {
     dispatch({
