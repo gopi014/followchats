@@ -1,27 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import classnames from 'classnames';
 import red from 'material-ui/colors/red';
 import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import  { CardHeader, CardMedia, CardContent } from 'material-ui/Card';
 import SocialMediaIcons from '../components/SocialMediaIcons';
-import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
-import FavoriteIcon from 'material-ui-icons/Favorite';
-import ShareIcon from 'material-ui-icons/Share';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import Icon from 'material-ui/Icon';
-import List,{ListItem, ListItemIcon, ListItemText,ListItemAvatar,ListItemSecondaryAction } from 'material-ui/List';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import SelectMenu from '../components/SelectMenu';
-import Collapse from 'material-ui/transitions/Collapse';
+import List,{ListItem } from 'material-ui/List';
 
 
 const styles = theme => ({
 
 media: {
-    height: 20,
+    height: 195,
   
   },
  avatar: {
@@ -45,7 +36,7 @@ class InterestData extends React.Component {
       </Avatar>
     }
     title= {interestItem.name }
-    subheader={<span>{interestItem.place}{interestItem.timeofPost}</span>}
+    subheader={<div><span>{interestItem.place}</span><span style={{float:'right'}}>{interestItem.timeofPost}</span></div>}
   />
      <List style={{ paddingTop: 1, paddingBottom: 1 }}>
       <ListItem style={{ paddingTop: 2, paddingBottom: 2 }}>

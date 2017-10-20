@@ -8,6 +8,7 @@ export const intData =
         "icon" : "facebook",
         "isHidden" : false,
         "posts": [{
+            "id": 0,
             "name" : "Siddappa Mirji",
             "timeofPost" : "13 hrs ago",
             "profileImage" : "SID",
@@ -27,6 +28,7 @@ export const intData =
             }
         },
         {
+            "id": 1,
             "name" : "Siddappa Mirji",
             "timeofPost" : "3 mins ago",
             "profileImage" : "SM",
