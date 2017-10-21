@@ -21,7 +21,7 @@ import Collapse from 'material-ui/transitions/Collapse';
 const styles = theme => ({
 
 media: {
-    height: 20,
+    height: 195,
   
   },
  avatar: {

@@ -41,7 +41,7 @@ mainPaper:{
     // borderRadius:10,
     cursor: 'pointer',
     padding:15,
-    width:60,
+    width:75,
     backgroundPosition: '30% 0',
     backgroundSize: 'cover',
     [theme.breakpoints.up('sm')]: {
