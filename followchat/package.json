@@ -30,6 +30,7 @@
     "react-dom": "^15.6.1",
     "react-draggable": "^3.0.3",
     "react-facebook-login": "^3.6.2",
+    "react-file-input": "^0.2.5",
     "react-fontawesome": "^1.6.1",
     "react-ga": "^2.2.0",
     "react-google-login": "^2.9.3",

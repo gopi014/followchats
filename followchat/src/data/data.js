@@ -8,6 +8,7 @@ export const intData =
         "icon" : "facebook",
         "isHidden" : false,
         "posts": [{
+            "id": 0,
             "name" : "Siddappa Mirji",
             "timeofPost" : "13 hrs ago",
             "profileImage" : "SID",
@@ -27,8 +28,9 @@ export const intData =
             }
         },
         {
+            "id": 1,
             "name" : "Siddappa Mirji",
-            "timeofPost" : "3 mins ago",
+            "timeofPost" : "30 mins ago",
             "profileImage" : "SM",
             "place" : "San fransisco",
             "connectedMedia": [
@@ -319,6 +321,16 @@ export const selctMenuOptions = [
     'Scheduled',
     'Private',
 ];
+export const profileMenu =[
+{
+    "primary":'Your Post',
+    "secondary":"056"
+},
+// {
+//     "primary":'Medias',
+//     "secondary":"15"  
+// }
+];
 
 export const drawerMenuOptions = {
     mainMenuOptions : [
@@ -345,6 +357,10 @@ export const drawerMenuOptions = {
         {
             "iconName": 'free_breakfast',
             "title": "Foodie Group"
+        },
+        {
+            "iconName": 'profile',
+            "title": "Profile"
         },
         
     ],

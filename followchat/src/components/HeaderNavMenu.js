@@ -25,6 +25,8 @@ import NavigationClose from 'material-ui-icons/Close';
 import { SocialIcon } from 'react-social-icons';
 import SocialMediaIcons from '../components/SocialMediaIcons'
 import { mailFolderListItems, otherMailFolderListItems }  from '../data/tileData';
+import SocialCard from '../components/SocialCard'
+
 const drawerWidth = 240;
 const primary = '#00bcd4'; 
  
@@ -137,11 +139,26 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'left',
     marginLeft:12
-  }
-   
+  },
+  selectedListItem:{
+    backgroundColor:"#ff3333"
+  },
+  // active:{
+  //   background:"none"
+  // }
+   hidden:{
+     display:"none"
+   }
 });
 
 class HeaderNavMenu extends React.Component {
+//  constructor(){
+//  super();
+//      this.state = {
+//              childVisible: false,
+// };
+// }
+
   state = {
     open: true,
     theme: false,
@@ -150,19 +167,33 @@ class HeaderNavMenu extends React.Component {
     dense: false,
     secondary: true,
     settingDrawer : false,
-    tabval: 0
+    tabval: 0,
+    selectedListItem:{}
   };
   handleDrawerOpen = () => {
     this.props.changeDrawerStatus(true);
   };
   handleClickListItem = (title) => {
+  
     console.log(title);
     this.props.actions.changeSelectedItem(title);
+    
+       // const currentState = this.state.active;
+    // this.setState({ active: !currentState });
   };
-  handleChange = (event, tabval) => {
+
+  handleChangeProfile = (e) => {
+    
+      // console.log(e.currentTarget.value);
+      this.props.actions.changeProfile("Profile");
+      
+         // const currentState = this.state.active;
+      // this.setState({ active: !currentState });
+    };
+   handleChange = (event, tabval) => {
     console.log(event.currentTarget);
     this.setState({ tabval });
-      };
+          };
 
   handleDrawerClose = () => {
     this.props.changeDrawerStatus(false);
@@ -179,17 +210,18 @@ class HeaderNavMenu extends React.Component {
   handleDialogClose = () => {
     this.setState({ dialogOpen: false });
   };
+
   render() {
     const {page, posts,classes} = this.props;
     const drawerMenuOptions = page.drawerMenuOptions;
     const socialData = posts.socialData;
     const status = page.drawerStatus;
     const { dense, secondary, tabval } = this.state; 
-    
+
         const mainMenuListItems = (
         <div>
           {drawerMenuOptions.mainMenuOptions.map(option =>
-            <ListItem  button key={option.title} onClick={()=>{this.handleClickListItem(option.title)}}>
+            <ListItem button  key={option.title} onClick={()=>{this.handleClickListItem(option.title)}}>
                 <ListItemIcon>
                 <Icon className={classes.menuOptiontext}>
                    {option.iconName}
@@ -322,8 +354,9 @@ class HeaderNavMenu extends React.Component {
               </div>
               
               <List dense={dense}>
-                  <ListItem >
-                    <ListItemAvatar>
+                  <ListItem button id="profile" name="profile"  value="profile" onClick={this.handleChangeProfile}>
+              
+                    <ListItemAvatar >
                         <Avatar className={classNames(classes.avatar, classes.bigAvatar)} src={require('../images/profile.png')} size={80}/>
                     </ListItemAvatar>
                     <ListItemText 
@@ -331,6 +364,7 @@ class HeaderNavMenu extends React.Component {
                       secondary={<Typography  className={classes.menuOptiontext}>smirji97@gmail.com</Typography>}
                     />
                   </ListItem>
+              
               </List>
               <Divider className={classes.drawerDividerColor} />
               <List className={classes.list} style={{paddingTop:1,paddingBottom:1}} onClick={this.handleDialogOpen}>

@@ -35,7 +35,7 @@ class SocialMediaIcons extends React.Component {
           {socialMenuOptions.map(option =>
             <IconButton 
               key={option.name} 
-              style={{width:30}}  
+              style={{width:30,height:30}}  
               onClick={()=>{this.showSocial(option.id)}}
             >
             <Avatar className={classes.iconAvatar}>

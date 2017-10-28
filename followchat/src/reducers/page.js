@@ -1,12 +1,14 @@
-import { THEME_CHANAGE, DRAWER_STATUS,SELECTED_MENU_ITEM, PAGE_LOGIN, PAGE_HOME, PAGE_SPAM, PAGE_FORUMS, PAGE_UPDATES, PAGE_SOCIAL } from '../constants/PageActionTypes'
-import {drawerMenuOptions,selctMenuOptions} from '../data/data'
+import { THEME_CHANAGE, DRAWER_STATUS,SELECTED_MENU_ITEM,SELECTED_PROFILE, PAGE_LOGIN, PAGE_HOME, PAGE_SPAM, PAGE_FORUMS, PAGE_UPDATES, PAGE_SOCIAL } from '../constants/PageActionTypes'
+import {drawerMenuOptions,selctMenuOptions,profileMenu} from '../data/data'
 const initialPageState = {
   	path: '/',
     drawerStatus: true,
     drawerWidth : 240,
     drawerMenuOptions : drawerMenuOptions,
     selctMenuOptions : selctMenuOptions,
+    profileMenu:profileMenu,
     selectedMenuItem : "Dashboard",
+    selectedProfile:"Homepage",
     themeChange: localStorage.getItem('theme-change-event') ? true : false,
 };
 
@@ -27,6 +29,9 @@ export default function reducer(state = initialPageState, action) {
         }
         case SELECTED_MENU_ITEM: {
             return {...state, selectedMenuItem: action.payload.selected}
+        }
+        case SELECTED_PROFILE: {
+            return {...state, selectedProfile: action.payload.selected}
         }
         case PAGE_LOGIN:
             return {...state, path: action.payload}

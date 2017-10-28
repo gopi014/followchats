@@ -65,6 +65,16 @@ export function changeSelectedItem(selected) {
     });
   }
 }
+export function changeProfile(selected) {
+  return function (dispatch) {
+    dispatch({
+      type: pageTypes.SELECTED_PROFILE,
+      payload: {
+        selected: selected
+      }
+    });
+  }
+}
 export function loginRestoreEvent(email, password, token) {
   return function (dispatch) {
     dispatch({

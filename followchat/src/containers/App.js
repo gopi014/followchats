@@ -7,6 +7,8 @@ import axios from "axios";
 import { withStyles } from 'material-ui/styles';
 import Interest from '../components/Interest';
 import InterestCard from '../components/InterestCard';
+import Profile from '../components/Profile';
+
 
 
 // Custom Pages
@@ -162,8 +164,10 @@ class App extends Component {
 };
 
 console.log(pagename)
-  
+if (page.selectedProfile =="Homepage") 
+{
     return (
+      
       <MuiThemeProvider theme={changedTheme ? theme2 : theme1}>
        <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -179,6 +183,13 @@ console.log(pagename)
         </div>
       </MuiThemeProvider >
     );
+  }
+  else 
+  {
+return(
+<div> <Profile/> </div>
+);
+  }
   }
 }
 
